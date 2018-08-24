@@ -12,4 +12,4 @@ require('babel-register')({
     presets: ['env'],
 })
 
-module.exports = require('./src/server/server.js');
+module.exports = require('./src/config/server.js');

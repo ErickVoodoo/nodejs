@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: twitter
+  server:
+    build: ./nodejs
+    command: npm run nodemon
+    volumes:
+      - ./nodejs:/usr/src/app
+    ports:
+      - 5001:8079
+    environment:
+      DEVELOPMENT: "true"
+      HOST: "0.0.0.0"
+      PORT: 8079
+      DB_HOST: db
+      DB_DATABASE: twitter
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_DIALECT: postgres
+    depends_on:
+      - db
+
+networks:
+  overlay:
